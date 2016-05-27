@@ -1,0 +1,2 @@
+<talkaction words="/war" channel="0" event="script" value="war.lua" desc="(Guild channel command) War management."/>
+<talkaction words="/balance" channel="0" event="script" value="balance.lua" desc="(Guild channel command) Balance management."/>

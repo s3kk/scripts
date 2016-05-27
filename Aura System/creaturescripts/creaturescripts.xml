@@ -1,0 +1,2 @@
+<event type="login" name="loginAura" event="script" value="creatureAura.lua"/>
+<event type="statschange" name="statsAura" event="script" value="creatureAura.lua"/>

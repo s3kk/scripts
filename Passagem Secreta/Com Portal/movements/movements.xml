@@ -1,0 +1,2 @@
+<movevent type="AddItem" tileitem="1" actionid="13501" event="script" value="statueback.lua"/>
+<movevent type="StepIn" actionid="5555" event="script" value="statueback.lua"/>

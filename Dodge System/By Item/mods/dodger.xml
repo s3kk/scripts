@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mod name="Dodge System" version="0.1" author="Night Wolf" contact="" enabled="yes">
+<event type="login" name="registerDodge" event="script"><![CDATA[
+function onLogin(cid)
+registerCreatureEvent(cid,"dodge")
+return true
+end
+]]></event>
+
+
+<event type="statschange" name="dodge" event="script"><![CDATA[
+
+
+
+
+
+
+function onStatsChange(cid, attacker, type, combat, value)
+if (type == STATSCHANGE_HEALTHLOSS or type == STATSCHANGE_MANALOSS) and isCreature(attacker) then
+    local max = 50
+    local slotPos = {1,2,3,4,5,6,7,8,9} 
+    local percent = 0.5
+    local dodgePercent = 0
+
+
+for i = 1, #slotPos do
+if getPlayerSlotItem(cid, slotPos[i]).uid > 1 then
+if getItemDodgePercent(getPlayerSlotItem(cid, slotPos[i]).uid) then
+dodgePercent = dodgePercent + getItemDodgePercent(getPlayerSlotItem(cid, slotPos[i]).uid)
+end
+end
+end
+if dodgePercent >= max then dodgePercent = max end
+if dodgePercent >= math.random (0,100) then
+value = math.ceil(value*(percent))
+doTargetCombatHealth(attacker, cid, combat, -value, -value, 255)
+doSendAnimatedText(getCreaturePos(cid), "DODGE", 6)
+return false
+end
+end
+return true
+end]]></event>
+</mod>

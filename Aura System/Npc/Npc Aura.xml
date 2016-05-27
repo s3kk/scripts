@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Npc Aura" script="npcAura.lua" walkinterval="2000" floorchange="0">
+    <health now="100" max="100"/>
+    <look type="128" head="55" body="53" legs="42" feet="0" addons="2"/>
+    <parameters>
+        <parameter key="message_greet" value="Ola, diga {aura} para ver as auras disponiveis."/>
+    </parameters>
+</npc>

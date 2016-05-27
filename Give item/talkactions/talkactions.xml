@@ -1,0 +1,1 @@
+<talkaction log="yes" access="5" words="/giveitem" event="script" value="giveitem.lua"/>

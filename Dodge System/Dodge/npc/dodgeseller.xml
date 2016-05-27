@@ -1,0 +1,5 @@
+<npc name="Dodge Skill Seller" script="data/npc/scripts/bookseller.lua" access="5" lookdir="1">
+<health now="1000" max="1000"/>
+<look type="133" head="95" body="86" legs="86" feet="38" addons="3"/>
+<parameters>
+<parameter key="message_greet" value="Hello |PLAYERNAME|. I've been waiting for you to come.. Say 'skill book' or 'level'" />

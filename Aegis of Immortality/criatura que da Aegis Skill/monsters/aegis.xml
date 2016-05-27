@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Aegis" nameDescription="Aegis, The Immortal" race="blood" experience="0" speed="605" manacost="0">
+<health now="300000" max="300000"/>
+<look type="287" head="0" body="0" legs="0" feet="0" corpse="0"/>
+<targetchange interval="2000" chance="15"/>
+<strategy attack="60" defense="5"/>
+<flags>
+<flag summonable="0"/>
+<flag attackable="1"/>
+<flag hostile="1"/>
+<flag illusionable="0"/>
+<flag convinceable="0"/>
+<flag pushable="0"/>
+<flag canpushitems="1"/>
+<flag canpushcreatures="1"/>
+<flag targetdistance="1"/>
+<flag runonhealth="0"/>
+</flags>
+<attacks>
+<attack name="melee" interval="2000" skill="210" attack="260"/>
+<attack name="lifedrain" interval="1000" chance="20" range="3" min="-550" max="-1050"/>
+<attack name="firecondition" interval="1000" chance="7" range="2" min="-800" max="-1200">
+<attribute key="shootEffect" value="fire"/>
+<attribute key="areaEffect" value="yellowspark"/>
+</attack>
+<attack name="physical" interval="1000" chance="7" radius="6" target="0" min="-250" max="-750">
+<attribute key="areaEffect" value="explosion"/>
+</attack>
+<attack name="death" interval="1000" chance="50" radius="5" target="0" min="-200" max="-500">
+<attribute key="areaEffect" value="mortarea"/>
+<attribute key="shootEffect" value="suddendeath"/>
+</attack>
+<attack name="firefield" interval="1000" chance="4" radius="5" target="0">
+<attribute key="areaEffect" value="explosion"/>
+</attack>
+<attack name="fire" interval="1000" chance="34" range="7" radius="7" target="1" min="-350" max="-850">
+<attribute key="shootEffect" value="fire"/>
+<attribute key="areaEffect" value="firearea"/>
+</attack>
+<attack name="fire" interval="1000" chance="13" length="8" spread="0" min="-500" max="-1000">
+<attribute key="areaEffect" value="explosion"/>
+</attack>
+<attack name="fire" interval="1000" chance="10" length="8" spread="3" min="-300" max="-1500">
+<attribute key="areaEffect" value="firearea"/>
+</attack>
+</attacks>
+<defenses armor="165" defense="150">
+<defense name="healing" interval="1000" chance="25" min="2000" max="3000">
+<attribute key="areaEffect" value="blueshimmer"/>
+</defense>
+<defense name="speed" interval="1000" chance="10" speedchange="1800" duration="4000">
+<attribute key="areaEffect" value="redshimmer"/>
+</defense>
+</defenses>
+<immunities>
+<immunity physical="0"/>
+<immunity energy="1"/>
+<immunity fire="1"/>
+<immunity poison="0"/>
+<immunity lifedrain="1"/>
+<immunity paralyze="1"/>
+<immunity outfit="1"/>
+<immunity drunk="1"/>
+<immunity invisible="1"/>
+</immunities>
+<voices interval="5000" chance="50">
+<voice sentence="Poor innocent, I CAN'T DIE HAHAHAHAAHA"/>
+<voice sentence="Your soul will be mine!"/>
+<voice sentence="MUAHAHAHAAHAHA, I TOLD YOU" yell="1"/>
+</voices>
+</monster>

@@ -1,0 +1,6 @@
+<instant name="Tanker" words="crescere protection" lvl="600" mana="300" prem="1" aggressive="0" selftarget="1" exhaustion="2000" needlearn="0" event="script" value="tanker.lua">
+	<vocation id="5"/>
+	<vocation id="6"/>
+	<vocation id="7"/>
+	<vocation id="8"/>
+</instant>

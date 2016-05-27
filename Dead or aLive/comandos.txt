@@ -1,0 +1,11 @@
+Comandos:
+3 comandos para GOD adcionar/remove/setar a reward do player:
+!addreward Socket 10/!addreward 10 Socket
+!removereward Socket 10/!removereward 10 Socket
+!setreward Socket 10/!setreward 10 Socket
+2 comandos para PLAYER ver, e pagar sua recompensa:
+!pay 100
+!reward Socket
+
+Movement:
+Ela é opcional, serve para você "proteger" algum tile, quando alguem passa emcima a reward dele aumenta.

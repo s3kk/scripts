@@ -1,0 +1,6 @@
+<instant name="xWhiteWolf" words="charm" lvl="200" mana="30" prem="1" exhaustion="1500" range="8" needtarget="1" needlearn="0" event="script" value="taunt.lua">
+	<vocation id="5"/>
+	<vocation id="6"/>
+	<vocation id="7"/>
+	<vocation id="8"/>
+</instant>

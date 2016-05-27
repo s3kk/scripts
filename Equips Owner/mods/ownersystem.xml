@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mod name="OwnerSystem" enabled="yes" author="MatheusMkalo" credits="Cezar (Patterns)">             
+
+<config name="OwnerLib"><![CDATA[
+function getSlotIds(tag)
+    local file = "mods/ownersystem.xml"
+    local input = assert(io.open(file))
+    local content = assert(input:read("*a"))
+    local tag = content:match("(<movevent[^>]*slot=[\"']".. tag .."[\"'][^>]*>)")
+    local itemid = tag:match("itemid=[\"'](.-)[\"']")
+    input:close()
+    return itemid:explode(";")
+end
+
+function writeId(tag, id)
+        local file = "mods/ownersystem.xml"
+        local input = assert(io.open(file))
+	local content = assert(input:read("*a"))
+	local tag = content:match("(<movevent[^>]*slot=[\"']".. tag .."[\"'][^>]*>)")
+	local itemid = tag:match("itemid=[\"'](.-)[\"']")
+	input:close()
+	if(itemid:match(tostring(id))) then return true end
+ 	if(itemid == "") then
+		itemid = id
+	else
+		itemid = itemid .. ";" .. id
+	end
+	local ntag = tag:gsub("itemid=[\"'](.-)[\"']", "itemid=\"" .. itemid .. "\"")
+	local content = content:gsub(tag, ntag)
+	local output = assert(io.open(file, "w"))
+	output:write(content)
+	output:close()
+        addEvent(doReloadInfo, 1000, 22)
+end
+
+function getItemType(itemid)
+    local slottypes = {"head", "body", "legs", "feet"}
+    local arq = io.open("data/items/items.xml", "r"):read("*all")
+    local attributes = arq:match('<item id="' .. itemid .. '".+name="' .. getItemNameById(itemid) ..'">(.-)</item>')
+    local slot = ""
+    for i,x in pairs(slottypes) do
+        if attributes:find(x) then
+	        slot = x
+		    break
+	    end
+    end
+    if slot == "body" then
+        slot = "armor"
+    end
+return slot
+end
+
+function isHandedWeapon(itemuid)
+    local typee = getItemWeaponType(itemuid) or 0
+    if typee >= 1 and typee <= 6 then
+        return TRUE
+    end
+end
+
+function isPlayerOwnerItem(cid, itemuid)
+    return not getItemAttribute(itemuid, "ownerguid") or getItemAttribute(itemuid, "ownerguid") == getPlayerGUID(cid)
+end
+
+function setItemOwner(itemuid, cid)
+    if isHandedWeapon(itemuid) then
+        local equips = getSlotIds("hand")
+        if not table.find(equips, getItemIdByName(getItemName(itemuid))) then
+            writeId("hand", getItemIdByName(getItemName(itemuid)))
+        end
+        doItemSetAttribute(itemuid, "ownerguid", getPlayerGUID(cid))
+    elseif getItemType(getItemIdByName(getItemName(itemuid))) then
+        local equips = getSlotIds(getItemType(getItemIdByName(getItemName(itemuid))))
+        if not table.find(equips, getItemIdByName(getItemName(itemuid))) then
+            writeId(getItemType(getItemIdByName(getItemName(itemuid))), getItemIdByName(getItemName(itemuid)))
+        end
+        doItemSetAttribute(itemuid, "ownerguid", getPlayerGUID(cid))
+    end
+end
+]]></config>
+
+<movevent type="Equip" itemid="" slot="head" event="script"><![CDATA[
+    domodlib("OwnerLib")
+    if not isPlayerOwnerItem(cid, item.uid) then
+        addEvent(doPlayerSendCancel, 1, cid, "You are not the owner of this item.")
+    else
+        return TRUE
+    end
+]]></movevent>
+
+<movevent type="Equip" itemid="" slot="hand" event="script"><![CDATA[
+    domodlib("OwnerLib")
+    if not isPlayerOwnerItem(cid, item.uid) then
+        addEvent(doPlayerSendCancel, 1, cid, "You are not the owner of this item.")
+    else
+        return TRUE
+    end
+]]></movevent>
+
+<movevent type="Equip" itemid="" slot="legs" event="script"><![CDATA[
+    domodlib("OwnerLib")
+    if not isPlayerOwnerItem(cid, item.uid) then
+        addEvent(doPlayerSendCancel, 1, cid, "You are not the owner of this item.")
+    else
+        return TRUE
+    end
+]]></movevent>
+
+<movevent type="Equip" itemid="" slot="armor" event="script"><![CDATA[
+    domodlib("OwnerLib")
+    if not isPlayerOwnerItem(cid, item.uid) then
+        addEvent(doPlayerSendCancel, 1, cid, "You are not the owner of this item.")
+    else
+        return TRUE
+    end
+]]></movevent>
+
+<movevent type="Equip" itemid="" slot="feet" event="script"><![CDATA[
+    domodlib("OwnerLib")
+    if not isPlayerOwnerItem(cid, item.uid) then
+        addEvent(doPlayerSendCancel, 1, cid, "You are not the owner of this item.")
+    else
+        return TRUE
+    end
+]]></movevent>
+
+</mod>

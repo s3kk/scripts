@@ -1,0 +1,10 @@
+<instant name="Black Hole" words="come here" lvl="200"  mana="500" prem="1" exhaustion="2000" needlearn="0" event="script" value="black hole.lua">
+		<vocation id="1"/>
+		<vocation id="2"/>
+		<vocation id="3"/>
+		<vocation id="4"/>
+		<vocation id="5"/>
+		<vocation id="6"/>
+		<vocation id="7"/>
+		<vocation id="8"/>
+	</instant>

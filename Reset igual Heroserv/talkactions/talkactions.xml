@@ -1,0 +1,1 @@
+<talkaction log="yes" words="/reset" access="5" event="script" value="reset.lua"/>

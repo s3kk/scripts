@@ -1,0 +1,7 @@
+<script>
+<event name="critical"/>
+</script>
+
+
+
+ANTES DE </monster>

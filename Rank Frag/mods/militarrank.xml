@@ -1,0 +1,67 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+        <mod name = "Military Ranks" version = "1.0" author = "Teckman" enabled = "yes">
+            <config name = "ranks"><![CDATA[
+                titles = {
+					[0] = "Newbie",
+                    [1] = "Private First Class",
+                    [3] = "Specialista",
+                    [5] = "Corporal",
+                    [10] = "Sargento",
+                    [12] = "Staff Sargento",
+                    [15] = "Primeiro Sargento",
+                    [20] = "Master Sargento",
+                    [22] = "Sargento Solar",
+                    [25] = "Sargento Major",
+                    [30] = "Sargento Major Comando",
+                    [35] = "Sargento Major Exercito",
+                    [38] = "Segundo Tenente",
+                    [40] = "Primeiro Tenente",
+                    [45] = "Capitao",
+                    [48] = "Major",
+                    [50] = "Tenente Coronel",
+                    [55] = "Coronel",
+                    [100] = "General de Brigada",
+                    [110] = "General de Divisao",
+                    [120] = "Tenente General",
+                    [140] = "General",
+                    [170] = "General de Exercito"
+                }
+                fragsStorage = 600
+            ]]></config>
+            <event type = "look" name = "ranksLook" event = "script"><![CDATA[
+                domodlib("ranks")
+                function onLook(cid, thing, position, lookDistance)
+                    if(isPlayer(thing.uid)) then
+                        local rank = {rank = "Private", frags = 0}
+                        for k, v in pairs(titles) do
+                            if(math.max(0, getPlayerStorageValue(thing.uid, fragsStorage)) > k - 1) then
+                                if(k - 1 > rank.frags) then
+                                    rank.rank, rank.frags = v, k - 1
+                                end
+                            end
+                        end
+                        doPlayerSetSpecialDescription(thing.uid, "\n Military rank: " .. rank.rank)
+                    end
+                    return true
+                end
+            ]]></event>
+            <event type = "kill" name = "ranksKill" event = "script"><![CDATA[
+                domodlib("ranks")
+                function onKill(cid, target)
+                    if(isPlayer(target)) then
+                        setPlayerStorageValue(cid, fragsStorage, math.max(0, getPlayerStorageValue(cid, fragsStorage) + 1))
+                        if(titles[getPlayerStorageValue(cid, fragsStorage)]) then
+                            doPlayerSendTextMessage(cid, MESSAGE_INFO_DESCR, "You advanced to military rank: " .. titles[getPlayerStorageValue(cid, fragsStorage)] .. ". Congratulations " .. titles[getPlayerStorageValue(cid, fragsStorage)] .. "!")
+                        end
+                    end
+                    return true
+                end
+            ]]></event>
+            <event type = "login" name = "ranksLogin" event = "script"><![CDATA[
+                function onLogin(cid)
+                    registerCreatureEvent(cid, "ranksKill")
+                    registerCreatureEvent(cid, "ranksLook")
+                    return true
+                end
+            ]]></event>
+        </mod>

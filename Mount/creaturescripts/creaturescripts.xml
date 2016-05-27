@@ -1,0 +1,1 @@
+<event type="login" name="mountLogin" event="script" value="mount1.lua"/>

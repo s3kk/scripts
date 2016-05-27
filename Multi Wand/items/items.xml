@@ -1,0 +1,6 @@
+<item id="7735" article="the" name="nome da sua wand">
+<attribute key="description" value="Você pode mudar o elemento da wand digitando !wand elemento desejado." />
+<attribute key="weight" value="2300" />
+<attribute key="weaponType" value="wand" />
+<attribute key="shootType" value="holy" />
+<attribute key="range" value="8" />

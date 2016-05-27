@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>  
+
+<mod name="Loot System" version="1.0" author="Vodkart And Mkalo" contact="none.com" enabled="yes">  
+
+<config name="Loot_func"><![CDATA[
+
+
+info = {
+
+OnlyPremium = true,
+
+AutomaticDeposit = true,
+
+BlockMonsters = {},
+
+BlockItemsList = {2123,2515}
+
+}
+
+
+function setPlayerStorageTable(cid, storage, tab)
+
+    local tabstr = "&"
+
+    for i,x in pairs(tab) do
+
+            tabstr = tabstr .. i .. "," .. x .. ";"
+
+    end
+
+    setPlayerStorageValue(cid, storage, tabstr:sub(1, #tabstr-1))
+
+end
+
+function getPlayerStorageTable(cid, storage)
+
+    local tabstr = getPlayerStorageValue(cid, storage)
+
+    local tab = {}
+
+    if type(tabstr) ~= "string" then
+
+            return {}
+
+    end
+
+    if tabstr:sub(1,1) ~= "&" then
+
+            return {}
+
+    end
+
+    local tabstr = tabstr:sub(2, #tabstr)
+
+    local a = string.explode(tabstr, ";")
+
+    for i,x in pairs(a) do
+
+            local b = string.explode(x, ",")
+
+            tab[tonumber(b[1]) or b[1]] = tonumber(b[2]) or b[2]
+
+    end
+
+    return tab
+
+end
+
+
+function isInTable(cid, item)
+
+         for _,i in pairs(getPlayerStorageTable(cid, 27000))do
+
+             if tonumber(i) == tonumber(item) then
+
+                return true
+
+             end
+
+         end
+
+return false
+
+end
+
+function addItemTable(cid, item)
+
+         local x = {}
+
+               for i = 1,#getPlayerStorageTable(cid, 27000) do
+
+                   table.insert(x,getPlayerStorageTable(cid, 27000)[i])
+
+               end
+
+               if x ~= 0 then
+
+                  table.insert(x,tonumber(item))
+
+                  setPlayerStorageTable(cid, 27000, x)
+
+               else
+
+                   setPlayerStorageTable(cid, 27000, {item})
+
+               end
+
+end
+
+function removeItemTable(cid, item)
+
+         local x = {}
+
+               for i = 1,#getPlayerStorageTable(cid, 27000) do
+
+                   table.insert(x,getPlayerStorageTable(cid, 27000)[i])
+
+               end
+
+               for i,v in ipairs(x) do 
+
+                   if tonumber(v) == tonumber(item) then
+
+                   table.remove(x,i)
+
+               end
+
+               end
+
+         return setPlayerStorageTable(cid, 27000, x)
+
+end
+
+function ShowItemsTabble(cid)
+
+local str,n = "-- My Loot List --\n\n",0
+
+for i = 1,#getPlayerStorageTable(cid, 27000) do
+
+n = n + 1
+
+str = str..""..n.." - "..getItemNameById(getPlayerStorageTable(cid, 27000)[i]).."\n"
+
+end
+
+return doShowTextDialog(cid, 2529, str)
+
+end
+
+function getContainerItems(containeruid)
+
+    local items = {}
+
+    local containers = {}
+
+    if type(getContainerSize(containeruid)) ~= "number" then
+
+            return false
+
+    end
+
+    for slot = 0, getContainerSize(containeruid)-1 do
+
+            local item = getContainerItem(containeruid, slot)
+
+            if item.itemid == 0 then
+
+                    break
+
+            end
+
+            if isContainer(item.uid) then
+
+                    table.insert(containers, item.uid)
+
+            end
+
+            table.insert(items, item)
+
+    end
+
+    if #containers > 0 then
+
+            for i,x in ipairs(getContainerItems(containers[1])) do
+
+                    table.insert(items, x)
+
+            end
+
+            table.remove(containers, 1)
+
+    end     
+
+    return items
+
+end
+
+function getItemsInContainerById(container, itemid) -- Function By Kydrai
+
+            local items = {}
+
+            if isContainer(container) and getContainerSize(container) > 0 then
+
+                            for slot=0, (getContainerSize(container)-1) do
+
+                                            local item = getContainerItem(container, slot)
+
+                                            if isContainer(item.uid) then
+
+                                                            local itemsbag = getItemsInContainerById(item.uid, itemid)
+
+                                                            for i=0, #itemsbag do
+
+                                                                            table.insert(items, itemsbag[i])
+
+                                                            end
+
+                                            else
+
+                                                            if itemid == item.itemid then
+
+                                                                            table.insert(items, item.uid)
+
+                                                            end
+
+                                            end
+
+                            end
+
+            end
+
+            return items
+
+end
+
+function doPlayerAddItemStacking(cid, itemid, quant) -- by mkalo
+
+    local item = getItemsInContainerById(getPlayerSlotItem(cid, 3).uid, itemid)
+
+    local piles = 0
+
+    if #item > 0 then
+
+            for i,x in pairs(item) do
+
+                    if getThing(x).type < 100 then
+
+                            local it = getThing(x)
+
+                            doTransformItem(it.uid, itemid, it.type+quant)
+
+                            if it.type+quant > 100 then
+
+                                    doPlayerAddItem(cid, itemid, it.type+quant-100)
+
+                            end
+
+                    else
+
+                           piles = piles+1
+
+                    end
+
+            end
+
+    else
+
+            return doPlayerAddItem(cid, itemid, quant)
+
+    end
+
+    if piles == #item then
+
+            doPlayerAddItem(cid, itemid, quant)
+
+    end
+
+end
+
+function AutomaticDeposit(cid,item,n)
+
+local deposit = item == tonumber(2160) and (n*10000) or tonumber(item) == 2152 and (n*100) or (n*1)
+
+return doPlayerDepositMoney(cid, deposit)
+
+end
+
+function corpseRetireItems(cid, pos)
+
+local check = false
+
+for i = 0, 255 do
+
+pos.stackpos = i
+
+tile = getTileThingByPos(pos)
+
+if tile.uid > 0 and isCorpse(tile.uid) then
+
+check = true break
+
+end
+
+end
+
+if check == true then
+
+     local items = getContainerItems(tile.uid)
+
+     for i,x in pairs(items) do
+
+             if isInArray(getPlayerStorageTable(cid, 27000), tonumber(x.itemid)) then
+
+                     if isItemStackable(x.itemid) then
+
+doPlayerAddItemStacking(cid, x.itemid, x.type)
+
+if info.AutomaticDeposit == true and isInArray({"2148","2152","2160"},tonumber(x.itemid)) then
+
+AutomaticDeposit(cid,x.itemid,x.type)
+
+end
+
+                     else
+
+                             doPlayerAddItem(cid, x.itemid)
+
+                     end
+
+                     doRemoveItem(x.uid)
+
+             end
+
+     end
+
+end
+
+end
+
+]]></config>
+
+<event type="login" name="LootLogin" event="script"><![CDATA[
+
+function onLogin(cid)
+
+registerCreatureEvent(cid, "MonsterAttack")
+
+return true
+
+end]]></event>
+
+<event type="death" name="LootEventDeath" event="script"><![CDATA[
+
+domodlib('Loot_func')
+
+function onDeath(cid, corpse, deathList)
+
+local killer,pos = deathList[1],getCreaturePosition(cid)
+
+addEvent(corpseRetireItems,1,killer,pos)
+
+return true
+
+end]]></event>
+
+<event type="combat" name="MonsterAttack" event="script"><![CDATA[
+domodlib('Loot_func')
+if isPlayer(cid) and isMonster(target) and getPlayerStorageValue(cid, 91911) >= os.time() and getPlayerStorageValue(cid, 181506) > 0 and not isInArray(info.BlockMonsters,string.lower(getCreatureName(target))) then
+registerCreatureEvent(target, "LootEventDeath")
+end
+return true]]></event>
+
+<talkaction words="!autoloot;/autoloot" event="buffer"><![CDATA[
+
+domodlib('Loot_func')
+
+local t = string.explode(string.lower(param), ",")
+
+if info.OnlyPremium == true and not isPremium(cid) then
+
+doPlayerSendCancel(cid, "you must be a premium account.") return true
+
+elseif getPlayerStorageValue(cid, 91911) - os.time() <= 0 then
+
+doPlayerSendCancel(cid, "Você não tem tempo de autoloot.") return true
+
+elseif not t[1] then
+
+ShowItemsTabble(cid) return true
+
+elseif tonumber(t[1]) or tonumber(t[2]) then
+
+doPlayerSendCancel(cid, "enter!autoloot add,name or !autoloot remove,name") return true
+
+elseif isInArray({"start","ativar","active","stop", "parar"}, tostring(t[1])) then
+
+setPlayerStorageValue(cid, 181506, getPlayerStorageValue(cid, 181506) <= 0 and 1 or 0)
+
+doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_ORANGE,"Você "..(getPlayerStorageValue(cid, 181506) <= 0 and "Desativou" or "Ativou").." o Auto Loot.") return true
+
+
+elseif isInArray({"add","remove"}, tostring(t[1])) then
+
+local func,check = tostring(t[1]) == "add" and addItemTable or removeItemTable, tostring(t[1]) == "add" and true or false
+
+local item = getItemIdByName(tostring(t[2]), false) 
+
+if not item then
+
+doPlayerSendCancel(cid, "This item does not exist.") return true
+
+elseif check == true and isInArray(info.BlockItemsList, item) then
+
+doPlayerSendCancel(cid, "You can not add this item in the list!") return true
+
+elseif isInTable(cid, item) == check then
+
+doPlayerSendCancel(cid, "This Item "..(check == true and "already" or "is not").." in your list.") return true
+
+end
+
+func(cid, item)
+
+doPlayerSendTextMessage(cid, MESSAGE_STATUS_CONSOLE_BLUE,check == true and "you added the item "..t[2].." in the list" or "you removed the item "..t[2].." from the list") return true
+
+end
+
+return true]]></talkaction>
+
+</mod>

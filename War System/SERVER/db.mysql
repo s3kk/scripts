@@ -1,0 +1,36 @@
+CREATE TABLE IF NOT EXISTS `guild_wars` (
+`id` INT NOT NULL AUTO_INCREMENT,
+`guild_id` INT NOT NULL,
+`enemy_id` INT NOT NULL,
+`begin` BIGINT NOT NULL DEFAULT '0',
+`end` BIGINT NOT NULL DEFAULT '0',
+`frags` INT UNSIGNED NOT NULL DEFAULT '0',
+`payment` BIGINT UNSIGNED NOT NULL DEFAULT '0',
+`guild_kills` INT UNSIGNED NOT NULL DEFAULT '0',
+`enemy_kills` INT UNSIGNED NOT NULL DEFAULT '0',
+`status` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0',
+PRIMARY KEY (`id`),
+KEY `status` (`status`),
+KEY `guild_id` (`guild_id`),
+KEY `enemy_id` (`enemy_id`)
+) ENGINE=InnoDB;
+
+ALTER TABLE `guild_wars`
+ADD CONSTRAINT `guild_wars_ibfk_1` FOREIGN KEY (`guild_id`) REFERENCES `guilds` (`id`) ON DELETE CASCADE,
+ADD CONSTRAINT `guild_wars_ibfk_2` FOREIGN KEY (`enemy_id`) REFERENCES `guilds` (`id`) ON DELETE CASCADE;
+
+ALTER TABLE `guilds` ADD `balance` BIGINT UNSIGNED NOT NULL AFTER `motd`;
+
+CREATE TABLE IF NOT EXISTS `guild_kills` (
+`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`guild_id` INT NOT NULL,
+`war_id` INT NOT NULL,
+`death_id` INT NOT NULL
+) ENGINE = InnoDB;
+
+ALTER TABLE `guild_kills`
+ADD CONSTRAINT `guild_kills_ibfk_1` FOREIGN KEY (`war_id`) REFERENCES `guild_wars` (`id`) ON DELETE CASCADE,
+ADD CONSTRAINT `guild_kills_ibfk_2` FOREIGN KEY (`death_id`) REFERENCES `player_deaths` (`id`) ON DELETE CASCADE,
+ADD CONSTRAINT `guild_kills_ibfk_3` FOREIGN KEY (`guild_id`) REFERENCES `guilds` (`id`) ON DELETE CASCADE;
+
+ALTER TABLE `killers` ADD `war` INT NOT NULL DEFAULT 0;

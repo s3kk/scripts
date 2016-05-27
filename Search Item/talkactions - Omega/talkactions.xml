@@ -1,0 +1,1 @@
+<talkaction words="/itemlist;/itemcount" access="5" event="script" value="itemlist.lua"/>

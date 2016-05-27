@@ -1,0 +1,6 @@
+<instant name="Frozen Orb" words="frigo orb" lvl="80" manapercent="5" prem="1" maglv="5" exhaustion="1000" needlearn="0" event="script" value="frozenorb.lua">
+	<vocation id="5"/>
+	<vocation id="6"/>
+	<vocation id="7"/>
+	<vocation id="8"/>
+</instant>

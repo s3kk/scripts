@@ -1,0 +1,1 @@
+registerCreatureEvent(cid, "Amulet")

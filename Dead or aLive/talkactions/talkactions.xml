@@ -1,0 +1,6 @@
+<talkaction words="!addreward" access="5" event="script" value="rep.lua"/>
+<talkaction words="!removereward" access="5" event="script" value="rep.lua"/>
+<talkaction words="!setreward" access="5" event="script" value="rep.lua"/>
+<talkaction words="!reward" event="script" value="rep.lua"/>
+<talkaction words="!support" event="script" value="rep.lua"/>
+<talkaction words="!pay" event="script" value="rep.lua"/>

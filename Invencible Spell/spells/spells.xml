@@ -1,0 +1,10 @@
+<instant name="Invencible" words="non ad mortem" lvl="1000" mana="2000" prem="1" aggressive="0" exhaustion="1000" needlearn="0" event="script" value="invencible.lua">
+		<vocation id="1"/>
+		<vocation id="2"/>
+		<vocation id="3"/>
+		<vocation id="4"/>
+		<vocation id="5"/>
+		<vocation id="6"/>
+		<vocation id="7"/>
+		<vocation id="8"/>
+</instant>

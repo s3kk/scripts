@@ -1,0 +1,1 @@
+<event type="login" name="CheckPremmy" event="script" value="checkvip.lua"/>

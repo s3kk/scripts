@@ -1,0 +1,2 @@
+<action itemid="8905;8906;8907;8909" event="script" value="transformshield.lua"/>
+<action itemid="8908" event="script" value="transformshield.lua"/>

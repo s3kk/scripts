@@ -1,0 +1,6 @@
+<wand id="XXXX" level="100" mana="30" event="script" value="wandelementos.lua">
+	<vocation id="1"/>
+	<vocation id="2"/>
+	<vocation id="5"/>
+	<vocation id="6"/>
+</wand>

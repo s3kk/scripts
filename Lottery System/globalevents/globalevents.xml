@@ -1,0 +1,1 @@
+<globalevent name="lottery" interval="7200" script="lottery.lua"/>

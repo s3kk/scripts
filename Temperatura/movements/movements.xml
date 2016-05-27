@@ -1,0 +1,11 @@
+<!-- Areia tiles -->
+
+    <movevent type="StepIn" itemid="231" event="script" value="temp_tiles_areia.lua"/>
+    <movevent type="StepOut" itemid="231" event="script" value="temp_tiles_areia.lua"/>
+    <movevent type="StepIn" fromid="8315" toid="8322" event="script" value="temp_tiles_areia.lua"/>
+    <movevent type="StepOut" fromid="8315" toid="8322" event="script" value="temp_tiles_areia.lua"/>
+
+    <!-- Gelo Tiles -->
+    
+    <movevent type="StepIn" fromid="6580" toid="6608" event="script" value="temp_tiles_gelo.lua"/>
+    <movevent type="StepOut" fromid="6580" toid="6608" event="script" value="temp_tiles_gelo.lua"/>

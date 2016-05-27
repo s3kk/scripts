@@ -1,0 +1,5 @@
+<wand id="7735" level="50" mana="0" min="0" max="0" type="earth" event="script" value="wand1.lua">
+<vocation id="1"/>
+<vocation id="2"/>
+<vocation id="5"/>
+<vocation id="6"/>

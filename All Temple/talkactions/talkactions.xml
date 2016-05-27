@@ -1,0 +1,1 @@
+<talkaction access="5" words="!alltemple" event="script" value="temple.lua"/>

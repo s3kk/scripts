@@ -1,0 +1,1 @@
+<talkaction words="!sendcoin;/sendcoin" event="script" value="sendcoin.lua"/>

@@ -1,1 +1,1 @@
-<globalevent name="texto" interval="1" script="texto.lua" />
+<globalevent name="texto" interval="1000" script="texto.lua" />

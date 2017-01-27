@@ -1,0 +1,2 @@
+MySQL - ALTER TABLE `players` ADD `resets` INT(11) NOT NULL DEFAULT "0";
+SQLite - ALTER TABLE players ADD resets INTEGER not null default 0

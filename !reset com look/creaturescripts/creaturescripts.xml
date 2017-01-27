@@ -1,0 +1,2 @@
+<event type="login" name="resetlook_register" event="script" value="resetlook.lua"/>
+<event type="look" name="resetlook" event="script" value="resetlook.lua"/>

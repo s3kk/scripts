@@ -1,7 +1,7 @@
 -- [( Mount System 1.4 created by Matheus for TibiaKing.com )] --
 function onUse(cid, item)
     local outfit = 342  -- Outfit da montaria!
-    local exhaust = 30 -- Tempo para player poder usar o item novamente! (tempo em segundos)
+    local exhaust = 60 -- Tempo para player poder usar o item novamente! (tempo em segundos)
     local time = 60 -- Tempo para ficar na montaria! (tempo em segundos)
     local speed = 500 -- Velocidade adicionada ao player após usar o item! (500 = velocidade, quanto maior mais rapido...)
     local mana = 0 -- Quantidade de mana que o player necessita para usar o sistema!

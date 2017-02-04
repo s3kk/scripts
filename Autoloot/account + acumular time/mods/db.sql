@@ -1,0 +1,1 @@
+ALTER TABLE `accounts` ADD loot_time INT(15) NOT NULL DEFAULT 0;

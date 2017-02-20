@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mod name="Reflect System" version="1.0" author="Sekk" enabled="yes">
+<config name="rc"><![CDATA[
+local config = {
+	chance = 100,  -- chance de sair o reflect (1 = 1% de chance)
+	valor_reflect = 15, -- % do dano do reflect
+	storage = 45455 -- storage do reflect
+}
+]]></config>
+<event type="login" name="Reflect_Login" event="script"><![CDATA[
+domodlib('rc')
+
+function onLogin(cid)
+		registerCreatureEvent(cid, "reflect")
+		return true
+end]]></event>
+<event type="statschange" name="reflect" event="script"><![CDATA[
+domodlib('rc')
+
+function onStatsChange(cid, attacker, type, combat, value)
+	if getPlayerStorageValue(cid, config.storage) > 0 then
+		if type == STATSCHANGE_HEALTHLOSS or STATSCHANGE_MANALOSS and isPlayer(cid) and isCreature(attacker) then
+			if math.random (1,100) <= config.chance then
+				doCreatureSay(cid, "Reflect!", TALKTYPE_MONSTER_SAY)
+				local danoReflect = value * (config.valor_reflect/100)
+				doTargetCombatHealth(cid, attacker, COMBAT_PHYSICALDAMAGE, -danoReflect, -danoReflect, CONST_ME_EXPLOSIONAREA)
+				return true
+			end
+		end
+	end
+	return true
+end]]></event>
+</mod>

@@ -1,1 +1,2 @@
-<event type="statschange" name="Transformation" event="script" value="monstertrans.lua"/>
+<event type="kill" name="BossCorpse" event="script" value="monstertransform.lua"/>
+<event type="login" name="BossCorpse_register" event="script" value="monstertransform.lua"/>
